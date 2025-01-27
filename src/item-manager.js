@@ -1,8 +1,10 @@
-import Item from "./item.js" 
+import Item from "./item.js"
+import Section from "./section.js"  
 
 export default class ItemManager {
     constructor () {
         this.itemList = [];
+        this.sectionList = [];
     }
 
     findItemIndexbyId (id) {
@@ -54,5 +56,19 @@ export default class ItemManager {
     changeItemLink (id, newLink) {
         const item = this.itemList[this.findItemIndexbyId(id)];
         item.changeLink(newLink);
+    }
+
+    createNewSection (name) {
+        const newSection = new Section(name);
+        this.sectionList.push(newSection)
+    }
+
+    removeSection (name) {
+        this.sectionList.splice(this.sectionList.indexOf(this.sectionList.find((section) => section.name === name)), 1)
+    }
+
+    changeSectionName (sectionName, newName) {
+        const section = this.sectionList.find((section) => section.name === sectionName);
+        section.changeName(newName);
     }
 }

@@ -1,4 +1,4 @@
-export default function DOM () {
+export default function DOM (itemManager) {
 
     const body = document.querySelector('body');
 
@@ -61,11 +61,43 @@ export default function DOM () {
         addItemBtn.textContent = 'Add Item'
     })();
 
-    const createSections = (() => {
+    const createSectionsBar = (() => {
         const sidebar = document.querySelector('.sidebar');
 
         const sectionsBar = document.createElement('div');
         sectionsBar.classList.add('sectionsBar');
         sidebar.appendChild(sectionsBar);
+
+        const sectionsBarList = document.createElement('ul');
+        sectionsBarList.classList.add('sectionsBarList');
+        sidebar.appendChild(sectionsBarList);
     })();
+
+    const createAddSectionsButton = (() => {
+        const sidebar = document.querySelector('.sidebar');
+
+        const addSectionsBtn = document.createElement('button');
+        addSectionsBtn.classList.add('addSectionsBtn');
+        sidebar.appendChild(addSectionsBtn)
+
+        addSectionsBtn.textContent = 'Add New Section'
+    })();
+
+    function renderSections () {
+        const sectionsBarList = document.querySelector('.sectionsBarList');
+        clearSections()
+        itemManager.sectionList.forEach((section) => {
+            const newSection = document.createElement('li');
+            newSection.textContent = section.name;
+            sectionsBarList.appendChild(newSection)
+        })
+    }
+    renderSections()
+
+    function clearSections () {
+        const sectionsBarList = document.querySelector('.sectionsBarList');
+
+        sectionsBarList.innerHTML = '';
+    }
+    
 }

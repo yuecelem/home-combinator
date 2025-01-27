@@ -4,7 +4,7 @@ import Section from "./section.js"
 export default class ItemManager {
     constructor (section1) {
         this.itemList = [];
-        this.sectionList = [section1];
+        this.sectionList = [new Section(section1)];
     }
 
     findItemIndexbyId (id) {

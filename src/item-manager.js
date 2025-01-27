@@ -2,9 +2,9 @@ import Item from "./item.js"
 import Section from "./section.js"  
 
 export default class ItemManager {
-    constructor () {
+    constructor (section1) {
         this.itemList = [];
-        this.sectionList = [];
+        this.sectionList = [section1];
     }
 
     findItemIndexbyId (id) {

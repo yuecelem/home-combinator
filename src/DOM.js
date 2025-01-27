@@ -92,6 +92,7 @@ export default function DOM (itemManager) {
             sectionsBarList.appendChild(newSection)
         })
     }
+
     renderSections()
 
     function clearSections () {
@@ -99,5 +100,45 @@ export default function DOM (itemManager) {
 
         sectionsBarList.innerHTML = '';
     }
+
+    function renderItems () {
+        const content = document.querySelector('.content');
+        clearItems()
+        //plug in filter for section
+        itemManager.itemList.forEach((item) => {
+
+            const itemLine = document.createElement('div');
+            itemLine.classList.add('itemLine');
+
+            const itemBrand = document.createElement('div');
+            itemBrand.classList.add('itemBrand')
+            itemBrand.innerHTML = item.brand;
+
+            const itemType = document.createElement('div');
+            itemType.classList.add('itemType');
+            itemType.innerHTML = item.itemType;
+
+            const assignedSectionName = document.createElement('div');
+            assignedSectionName.classList.add('assignedSectionName');
+            assignedSectionName.innerHTML = item.assignedSectionName;
+
+            const itemPrice = document.createElement('div');
+            itemPrice.classList.add('itemPrice')
+            itemPrice.innerHTML = item.itemPrice;
+
+            itemLine.appendChild(itemBrand);
+            itemLine.appendChild(itemType);
+            itemLine.appendChild(assignedSectionName);
+            itemLine.appendChild(itemPrice);
+
+            content.appendChild(itemLine);
+        })
+    }
+    renderItems()
+
+    function clearItems () {
+        const content = document.querySelector('.content').innerHTML = '';
+    }
+
     
 }

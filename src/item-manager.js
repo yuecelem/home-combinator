@@ -31,7 +31,28 @@ export default class ItemManager {
         }
     }   
 
-    // changeItemBrand (id, newBrand) {
-    //     const item = this.itemList.
-    // }
+    changeItemBrand (id, newBrand) {
+        const item = this.itemList[this.findItemIndexbyId(id)];
+        item.changeBrand(newBrand);
+    }
+
+    changeItemType (id, newType) {
+        const item = this.itemList[this.findItemIndexbyId(id)];
+        item.changeType(newType);
+    }
+
+    changeItemAssignedSectionName (id, newSection) {
+        const item = this.itemList[this.findItemIndexbyId(id)];
+        item.changeAssignedSectionName(newSection);
+    }
+
+    changeItemPrice (id, newPrice) {
+        const item = this.itemList[this.findItemIndexbyId(id)];
+        item.changePrice(newPrice);
+    }
+
+    changeItemLink (id, newLink) {
+        const item = this.itemList[this.findItemIndexbyId(id)];
+        item.changeLink(newLink);
+    }
 }

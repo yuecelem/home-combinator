@@ -93,7 +93,7 @@ export default function DOM (itemManager) {
         })
     }
 
-    renderSections()
+    
 
     function clearSections () {
         const sectionsBarList = document.querySelector('.sectionsBarList');
@@ -124,7 +124,7 @@ export default function DOM (itemManager) {
 
             const itemPrice = document.createElement('div');
             itemPrice.classList.add('itemPrice')
-            itemPrice.innerHTML = item.itemPrice;
+            itemPrice.innerHTML = item.price;
 
             itemLine.appendChild(itemBrand);
             itemLine.appendChild(itemType);
@@ -134,11 +134,77 @@ export default function DOM (itemManager) {
             content.appendChild(itemLine);
         })
     }
-    renderItems()
+    
 
     function clearItems () {
         const content = document.querySelector('.content').innerHTML = '';
     }
 
+    const addSectionsBtn = document.querySelector('.addSectionsBtn');
     
+    addSectionsBtn.addEventListener('click', () => {
+        const dialog = document.createElement('dialog');
+        const sectionNameLabel = document.createElement('label');
+        const sectionNameInput = document.createElement('input');
+        const confirmBtn = document.createElement('button');
+
+        dialog.classList.add('addSectionDialog');
+
+        sectionNameLabel.innerHTML = 'Enter Section Name:';
+        sectionNameLabel.setAttribute('for', 'input');
+
+        sectionNameInput.setAttribute('name', 'input');
+
+        confirmBtn.textContent = 'Confirm'
+        
+        dialog.appendChild(sectionNameLabel);
+        dialog.appendChild(sectionNameInput);
+        dialog.appendChild(confirmBtn);
+
+        body.appendChild(dialog)
+        dialog.showModal()
+
+        confirmBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            itemManager.createNewSection(sectionNameInput.value)
+            dialog.close()
+            dialog.remove()
+            renderSections();
+        })
+    })
+
+    const addItemBtn = document.querySelector('addItemBtn');
+
+    // addItemBtn.addEventListener('click', () => {
+    //     const dialog = document.createElement('dialog');
+    //     const sectionNameLabel = document.createElement('label');
+    //     const sectionNameInput = document.createElement('input');
+    //     const confirmBtn = document.createElement('button');
+
+    //     dialog.classList.add('addSectionDialog');
+
+    //     sectionNameLabel.innerHTML = 'Enter Section Name:';
+    //     sectionNameLabel.setAttribute('for', 'input');
+
+    //     sectionNameInput.setAttribute('name', 'input');
+
+    //     confirmBtn.textContent = 'Confirm'
+        
+    //     dialog.appendChild(sectionNameLabel);
+    //     dialog.appendChild(sectionNameInput);
+    //     dialog.appendChild(confirmBtn);
+
+    //     body.appendChild(dialog)
+    //     dialog.showModal()
+
+    //     confirmBtn.addEventListener("click", (e) => {
+    //         e.preventDefault();
+    //         itemManager.createNewSection(sectionNameInput.value)
+    //         dialog.close()
+    //         renderSections();
+    //     })
+    // })
+
+    renderSections()
+    renderItems()
 }

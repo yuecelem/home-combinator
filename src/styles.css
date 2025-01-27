@@ -110,4 +110,20 @@
 .addSectionsBtn:hover {
     background: #979697;
 }
+
+.content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+    margin-left: 8px;
+    margin-right: 8px;
+
+}
    
+.itemLine {
+    display: flex;
+    flex-direction: row;
+    height: 32px;
+    align-items: center;
+    justify-content: space-between;
+}

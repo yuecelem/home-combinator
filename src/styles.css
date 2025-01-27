@@ -1,3 +1,83 @@
-body {
-    background-color: antiquewhite;
+:root {
+    --main-bg-color: #e7e5e4;
+    --secondary-bg-color: #e5e5e5;
+    --third-bg-color: #fafaf9;
+
+    --main-font-fam: "Roboto", serif;
+    /* --secondary-font-fam: */
+
+    --border-divider: 1px solid grey;
+
 }
+
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.topbar {
+    min-height: 126px;
+    background-color: var(--main-bg-color);
+}
+
+.header {
+    font-family: var(--main-font-fam);
+    font-size: 48px;
+    font-weight: 600;
+    margin-top: 36px;    
+    margin-left: 26px;
+
+    font-style: italic;
+}
+
+.panel {
+    flex-grow: 1;
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 4fr;
+
+    border-top: var(--border-divider);
+}
+
+.sidebar {
+    border-right: var(--border-divider);
+    background-color: var(--secondary-bg-color);
+}
+
+.mainpane {
+    background-color: var(--third-bg-color);
+    display: grid;
+    grid-template-rows: 54px 1fr;
+    padding: 0 25px;
+}
+
+.toolbar {
+    border-bottom: 0.5px dotted grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    padding: 8px;
+}
+
+.addItemBtn {
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0rem 1rem;
+    font-family: inherit;
+    letter-spacing: 0.05rem;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 500px;
+    background: #5e7c5a;
+    color: rgb(232, 232, 233);
+   }
+   

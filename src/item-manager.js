@@ -6,7 +6,7 @@ export default class ItemManager {
     }
 
     findItemIndexbyId (id) {
-        let itemIndex = 0;
+        let itemIndex;
         // find the list index of the item to be removed
         this.itemList.forEach((item) => {
             if ( item.id === id ) {
@@ -23,10 +23,12 @@ export default class ItemManager {
         this.itemList.push(newItem)
     }
 
-
     removeItemFromList (removeId) {
         const itemIndex = this.findItemIndexbyId(removeId);
+        console.log(itemIndex)
+        if (typeof itemIndex !== 'undefined'){
         this.itemList.splice(itemIndex, 1);
+        }
     }   
 
     // changeItemBrand (id, newBrand) {

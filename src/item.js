@@ -1,6 +1,6 @@
 export default class Item{
-    constructor(id, brand, itemType, assignedSectionName, price, link) {
-        this.id = id;
+    constructor(brand, itemType, assignedSectionName, price, link) {
+        this.id;
         this.brand = brand;
         this.itemType = itemType;
         this.assignedSectionName = assignedSectionName;
@@ -8,11 +8,14 @@ export default class Item{
         this.link = link;
     }
 
-    changeItemBrand (newBrand) {
+    setId (itemId) {
+        this.id = itemId;
+    }
+    changeBrand (newBrand) {
         this.brand = newBrand;
     }
 
-    changeItemType (newItemType) {
+    changeType (newItemType) {
         this.itemType = newItemType;
     }
 

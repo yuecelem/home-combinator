@@ -11,6 +11,7 @@ export default class Item{
     setId (itemId) {
         this.id = itemId;
     }
+    
     changeBrand (newBrand) {
         this.brand = newBrand;
     }

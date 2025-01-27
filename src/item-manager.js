@@ -6,7 +6,7 @@ export default class ItemManager {
     }
 
     findItemIndexbyId (id) {
-        let itemIndex;
+        let itemIndex = false;
         // find the list index of the item to be removed
         this.itemList.forEach((item) => {
             if ( item.id === id ) {
@@ -26,8 +26,8 @@ export default class ItemManager {
     removeItemFromList (removeId) {
         const itemIndex = this.findItemIndexbyId(removeId);
         console.log(itemIndex)
-        if (typeof itemIndex !== 'undefined'){
-        this.itemList.splice(itemIndex, 1);
+        if (itemIndex !== false){
+            this.itemList.splice(itemIndex, 1);
         }
     }   
 

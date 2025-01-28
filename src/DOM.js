@@ -61,6 +61,82 @@ export default function DOM (itemManager) {
         addItemBtn.textContent = 'Add Item'
     })();
 
+    const createItemAddDialog = (() => {
+
+        const addItemDialog = document.createElement('dialog');
+        addItemDialog.classList.add('addItemDialog');
+
+        const itemBrandLabel = document.createElement('label');
+        const itemBrandInput = document.createElement('input');
+        
+        itemBrandInput.setAttribute('brand', 'input');
+        itemBrandInput.classList.add('itemBrandInput');
+        itemBrandLabel.setAttribute('for', 'input');
+        itemBrandLabel.innerHTML = 'Item Brand:';
+
+        const itemTypeLabel = document.createElement('label');
+        const itemTypeInput = document.createElement('input');
+        
+        itemTypeInput.setAttribute('type', 'input');
+        itemTypeInput.classList.add('itemTypeInput');
+
+        itemTypeLabel.setAttribute('for', 'input');
+        itemTypeLabel.innerHTML = 'Item Type:';
+
+        const itemSectionLabel = document.createElement('label');
+        const itemSectionInput = document.createElement('input');
+        
+        itemSectionInput.setAttribute('section', 'input');
+        itemSectionInput.classList.add('itemSectionInput');
+
+        itemSectionLabel.setAttribute('for', 'input');
+        itemSectionLabel.innerHTML = 'Item Section:';
+
+        const itemPriceLabel = document.createElement('label');
+        const itemPriceInput = document.createElement('input');
+        
+        itemPriceInput.setAttribute('price', 'input');
+        itemPriceInput.classList.add('itemPriceInput');
+
+        itemPriceLabel.setAttribute('for', 'input');
+        itemPriceLabel.innerHTML = 'Item Price:';
+
+        const itemLinkLabel = document.createElement('label');
+        const itemLinkInput = document.createElement('input');
+        
+        itemLinkInput.setAttribute('link', 'input');
+        itemLinkInput.classList.add('itemLinkInput');
+
+        itemLinkLabel.setAttribute('for', 'input');
+        itemLinkLabel.innerHTML = 'Item Link:';
+        
+
+        const itemConfirmBtn = document.createElement('button');
+        itemConfirmBtn.textContent = 'Add'
+        itemConfirmBtn.classList.add('itemConfirmBtn');
+
+
+        addItemDialog.appendChild(itemBrandLabel);
+        addItemDialog.appendChild(itemBrandInput);
+
+        addItemDialog.appendChild(itemTypeLabel);
+        addItemDialog.appendChild(itemTypeInput);
+
+        addItemDialog.appendChild(itemSectionLabel);
+        addItemDialog.appendChild(itemSectionInput);
+
+        addItemDialog.appendChild(itemPriceLabel);
+        addItemDialog.appendChild(itemPriceInput);
+
+        addItemDialog.appendChild(itemLinkLabel);
+        addItemDialog.appendChild(itemLinkInput);
+
+        addItemDialog.appendChild(itemConfirmBtn);
+        
+        body.appendChild(addItemDialog)
+
+    })();
+
     const createSectionsBar = (() => {
         const sidebar = document.querySelector('.sidebar');
 
@@ -83,23 +159,59 @@ export default function DOM (itemManager) {
         addSectionsBtn.textContent = 'Add New Section'
     })();
 
+    const createAddSectionDialog = (function () {
+
+        const addSectionDialog = document.createElement('dialog');
+        const sectionNameLabel = document.createElement('label');
+        const sectionNameInput = document.createElement('input');
+        sectionNameInput.classList.add('sectionNameInput')
+
+        const sectionConfirmBtn = document.createElement('button');
+        sectionConfirmBtn.textContent = 'Confirm'
+        sectionConfirmBtn.classList.add('sectionConfirmBtn')
+
+        addSectionDialog.classList.add('addSectionDialog');
+
+        sectionNameLabel.innerHTML = 'Enter Section Name:';
+        sectionNameLabel.setAttribute('for', 'input');
+
+        sectionNameInput.setAttribute('name', 'input');
+
+        addSectionDialog.appendChild(sectionNameLabel);
+        addSectionDialog.appendChild(sectionNameInput);
+        addSectionDialog.appendChild(sectionConfirmBtn);
+
+        body.appendChild(addSectionDialog);
+
+    })();
+
     function renderSections () {
         const sectionsBarList = document.querySelector('.sectionsBarList');
         clearSections()
+        
         itemManager.sectionList.forEach((section) => {
             const newSection = document.createElement('li');
             newSection.textContent = section.name;
             sectionsBarList.appendChild(newSection)
+            sectionsBarList.appendChild(createSectionDeleteBtn(section.name))
+
         })
     }
-
-    
 
     function clearSections () {
         const sectionsBarList = document.querySelector('.sectionsBarList');
 
         sectionsBarList.innerHTML = '';
     }
+
+    function createSectionDeleteBtn (sectionName) {
+        const sectionDeleteBtn = document.createElement('button');
+        sectionDeleteBtn.classList.add('sectionDeleteBtn');
+        sectionDeleteBtn.setAttribute('sectionName', sectionName);
+        sectionDeleteBtn.textContent = 'Remove';
+        return sectionDeleteBtn;
+    }
+
 
     function renderItems () {
         const content = document.querySelector('.content');
@@ -135,75 +247,94 @@ export default function DOM (itemManager) {
         })
     }
     
-
     function clearItems () {
         const content = document.querySelector('.content').innerHTML = '';
     }
 
-    const addSectionsBtn = document.querySelector('.addSectionsBtn');
     
-    addSectionsBtn.addEventListener('click', () => {
-        const dialog = document.createElement('dialog');
-        const sectionNameLabel = document.createElement('label');
-        const sectionNameInput = document.createElement('input');
-        const confirmBtn = document.createElement('button');
+    // SECTION EVENT HANDLERS  
+    
+    const sectionEventHandlers = (function () {
+        const addSectionsBtn = document.querySelector('.addSectionsBtn')
+        const addSectionDialog = document.querySelector('.addSectionDialog')
+        const sectionConfirmBtn = document.querySelector('.sectionConfirmBtn')
+        const sectionNameInput = document.querySelector('.sectionNameInput')
+        const sectionDeleteBtnGroup = document.getElementsByClassName('sectionDeleteBtn');
 
-        dialog.classList.add('addSectionDialog');
+        console.log(sectionDeleteBtnGroup)
+        addSectionsBtn.addEventListener('click', () => {
+            addSectionDialog.showModal();
+        })
 
-        sectionNameLabel.innerHTML = 'Enter Section Name:';
-        sectionNameLabel.setAttribute('for', 'input');
-
-        sectionNameInput.setAttribute('name', 'input');
-
-        confirmBtn.textContent = 'Confirm'
-        
-        dialog.appendChild(sectionNameLabel);
-        dialog.appendChild(sectionNameInput);
-        dialog.appendChild(confirmBtn);
-
-        body.appendChild(dialog)
-        dialog.showModal()
-
-        confirmBtn.addEventListener("click", (e) => {
+        sectionConfirmBtn.addEventListener("click", (e) => {
             e.preventDefault();
             itemManager.createNewSection(sectionNameInput.value)
-            dialog.close()
-            dialog.remove()
+            addSectionDialog.close()
             renderSections();
+            sectionNameInput.value = '';
         })
-    })
 
-    const addItemBtn = document.querySelector('addItemBtn');
-
-    // addItemBtn.addEventListener('click', () => {
-    //     const dialog = document.createElement('dialog');
-    //     const sectionNameLabel = document.createElement('label');
-    //     const sectionNameInput = document.createElement('input');
-    //     const confirmBtn = document.createElement('button');
-
-    //     dialog.classList.add('addSectionDialog');
-
-    //     sectionNameLabel.innerHTML = 'Enter Section Name:';
-    //     sectionNameLabel.setAttribute('for', 'input');
-
-    //     sectionNameInput.setAttribute('name', 'input');
-
-    //     confirmBtn.textContent = 'Confirm'
+        // sectionDeleteBtnGroup.forEach((e) => {
+        //     e.preventDefault();
+            
+        //     e.addEventListener('click', () => {
+        //         console.log(e)
+        //     })
+        // })
         
-    //     dialog.appendChild(sectionNameLabel);
-    //     dialog.appendChild(sectionNameInput);
-    //     dialog.appendChild(confirmBtn);
 
-    //     body.appendChild(dialog)
-    //     dialog.showModal()
+        
 
-    //     confirmBtn.addEventListener("click", (e) => {
-    //         e.preventDefault();
-    //         itemManager.createNewSection(sectionNameInput.value)
-    //         dialog.close()
-    //         renderSections();
-    //     })
-    // })
+    })();
+ 
+
+    // ITEM EVENT HANDLERS  
+    
+    const itemEventHandlers = (() => {
+        const addItemBtn = document.querySelector('.addItemBtn');
+        const itemConfirmBtn = document.querySelector('.itemConfirmBtn')
+        const itemBrandInput = document.querySelector('.itemBrandInput')
+        const itemTypeInput = document.querySelector('.itemTypeInput')
+        const itemSectionInput = document.querySelector('.itemSectionInput')
+        const itemPriceInput = document.querySelector('.itemPriceInput')
+        const itemLinkInput = document.querySelector('.itemLinkInput')
+        const addItemDialog = document.querySelector('.addItemDialog')
+
+        addItemBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+    
+            itemBrandInput.value = '';
+            itemTypeInput.value = '';
+            itemSectionInput.value = '';
+            itemPriceInput.value = '';
+            itemLinkInput.value = '';
+    
+            addItemDialog.showModal()
+        })
+
+        itemConfirmBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+    
+            itemManager.createNewItem(
+                itemBrandInput.value,
+                itemTypeInput.value,
+                itemSectionInput.value,
+                itemPriceInput.value,
+                itemLinkInput.value
+            )
+            renderItems();
+            addItemDialog.close();
+        })
+
+
+    })();
+
+    
+
+    
+
+
+
 
     renderSections()
     renderItems()

@@ -127,3 +127,14 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.sectionsBarList > li {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.sectionsBarList > button {
+    position: relative;
+    top: -30px;
+    right: -80%;
+}
